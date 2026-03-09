@@ -1,7 +1,7 @@
 {% for link in site.links %}
 {% if link.URL %}
 <a
-    class="links flex min-h-auto font-semibold my-2.5 mx-5 px-5 py-1.5 rounded-md w-full md:w-32 h-14 place-content-center text-white hover:opacity-75 lg:m-5 md:m-5 sm:m-3.5"
+    class="links flex min-h-auto font-semibold my-2.5 mx-5 px-5 py-1.5 rounded-md w-full md:w-32 h-14 items-center justify-center text-white hover:opacity-75 lg:m-5 md:m-5 sm:m-3.5"
     href="{{ link.URL | rtrim '/' }}{% if link.Username %}/{{ link.Username }}{% endif %}"
     target="_blank"
     rel="noopener noreferrer"
