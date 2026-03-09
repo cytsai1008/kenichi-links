@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+/* Tell Tailwind where to scan for class usage in Jekyll templates */
+@source "../_includes/**/*.html";
+@source "../_layouts/**/*.html";
+@source "../*.md";
+
+html,
+body {
+    font-family: 'Poppins', 'Noto Sans TC', sans-serif;
+}
+
+a {
+    outline: none;
+}
+
+a:focus-visible,
+.links:focus-visible {
+    outline: 0.2rem solid #ffffff;
+    outline-offset: 0.2rem;
+}
+
+#image {
+    transition: transform 0.5s ease;
+    background-position: center;
+}
+
+.links {
+    transition: transform ease 0.25s, text-shadow ease 0.25s;
+    text-shadow: 0 0.05rem 0.25rem rgba(0, 0, 0, 0.05);
+}
+
+.links:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0.15rem 0.5rem rgba(0, 0, 0, 0.15);
+}
+
+.links .fa-hand-paper {
+    transform: scale(-1, 1) rotate(45deg);
+}
+
+.link-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #image,
+    .links {
+        transition: none;
+    }
+
+    .links:hover {
+        transform: none;
+    }
+}
