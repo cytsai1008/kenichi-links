@@ -1,14 +1,9 @@
----
----
+@import "tailwindcss";
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
-@import url(https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/0.0.0-5a9c68d/base.css);
-@import url(https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/0.0.0-5a9c68d/components.min.css);
-@import url(https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/0.0.0-5a9c68d/utilities.min.css);
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Tell Tailwind where to scan for class usage in Jekyll templates */
+@source "../_includes/**/*.html";
+@source "../_layouts/**/*.html";
+@source "../*.md";
 
 html,
 body {

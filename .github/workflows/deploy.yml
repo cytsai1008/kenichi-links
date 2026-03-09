@@ -34,14 +34,14 @@ jobs:
       - name: Setup Ruby for Jekyll preview
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.1"
+          ruby-version: "3.3"
           bundler-cache: true
           cache-version: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: "18"
+          node-version: "22"
 
       - name: Restore npm cache (only when lockfile present)
         if: ${{ steps.check-lock.outputs.lockfile == 'true' }}
@@ -63,6 +63,9 @@ jobs:
         run: npm install --no-audit --no-fund
         env:
           CI: "true"
+
+      - name: Build Tailwind CSS
+        run: npm run build:css
 
       - name: Start local server and wait for availability
         run: |

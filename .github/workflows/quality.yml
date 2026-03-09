@@ -19,13 +19,13 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.1"
+          ruby-version: "3.3"
           bundler-cache: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: "18"
+          node-version: "22"
           cache: "npm"
 
       - name: Install Node dependencies
@@ -35,6 +35,9 @@ jobs:
 
       - name: Validate configuration and templates
         run: npm run check
+
+      - name: Build Tailwind CSS
+        run: npm run build:css
 
       - name: Build site
         run: bundle exec jekyll build
