@@ -1,7 +1,7 @@
 ---
 ---
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
 @import url(https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/0.0.0-5a9c68d/base.css);
 @import url(https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/0.0.0-5a9c68d/components.min.css);
@@ -10,42 +10,53 @@
 @tailwind components;
 @tailwind utilities;
 
-body,
-html {
-    a{
-        outline: none;
-    }
-    font-family: 'Poppins', "Noto Sans TC", sans-serif;
-    #image {
-        transition: all 0.5s ease;
-        background-position: center;
-        &:hover {
-            // transform: scale(1.05);
-        }
-        ::after {
-            background-color: black;
-        }
-    }
+html,
+body {
+    font-family: 'Poppins', 'Noto Sans TC', sans-serif;
+}
+
+a {
+    outline: none;
+}
+
+a:focus-visible,
+.links:focus-visible {
+    outline: 0.2rem solid #ffffff;
+    outline-offset: 0.2rem;
+}
+
+#image {
+    transition: transform 0.5s ease;
+    background-position: center;
+}
+
+.links {
+    transition: transform ease 0.25s, text-shadow ease 0.25s;
+    text-shadow: 0 0.05rem 0.25rem rgba(0, 0, 0, 0.05);
+}
+
+.links:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0.15rem 0.5rem rgba(0, 0, 0, 0.15);
+}
+
+.links .fa-hand-paper {
+    transform: scale(-1, 1) rotate(45deg);
+}
+
+.link-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #image,
     .links {
-        transition: all ease 0.25s;
-        &:hover {
-            transform: scale(1.05);
-        }
-        text-shadow: 0 0.05rem 0.25rem rgba(0, 0, 0, 0.05);
-        &:hover {
-            text-shadow: 0 0.15rem 0.50rem rgba(0, 0, 0, 0.15);
-        }
-        .fa-hand-paper{
-            -moz-transform: scale(-1, 1) rotate(45deg);
-            -webkit-transform: scale(-1, 1) rotate(45deg);
-            -o-transform: scale(-1, 1) rotate(45deg);
-            -ms-transform: scale(-1, 1) rotate(45deg);
-            transform: scale(-1, 1) rotate(45deg);
-        }
-        #link-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        transition: none;
+    }
+
+    .links:hover {
+        transform: none;
     }
 }

@@ -15,7 +15,10 @@
   },
   "scripts": {
     "serve": "bundle exec jekyll serve",
-    "ss": "node ./scripts/screenshot.js"
+    "ss": "node ./scripts/screenshot.js",
+    "check:config": "node ./scripts/validate-config.js",
+    "check:templates": "node ./scripts/lint-templates.js",
+    "check": "npm run check:config && npm run check:templates"
   },
   "keywords": [
     "links",
