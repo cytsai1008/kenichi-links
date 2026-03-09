@@ -1,0 +1,16 @@
+{
+  "plugins": ["prettier-plugin-tailwindcss", "@shopify/prettier-plugin-liquid"],
+  "tailwindStylesheet": "./_tailwind/input.css",
+  "printWidth": 100,
+  "tabWidth": 2,
+  "singleQuote": false,
+  "trailingComma": "es5",
+  "overrides": [
+    {
+      "files": ["**/*.html"],
+      "options": {
+        "parser": "liquid-html"
+      }
+    }
+  ]
+}
