@@ -35,7 +35,7 @@ layout: compress
                 <h1 class="text-5xl text-center font-semibold mt-3 mx-auto">{{ site.name }}</h1>
                 <hr class="my-2 opacity-25">
                 <p class="text-lg break-keep overflow-visible inline-flex font-light mt-1.5 mx-auto text-center opacity-70 2xl:w-5/12 xl:w-5/12 md:w-7/12 sm:w-full justify-center">{{ site.tagline }}</p>
-                <div class="grid grid-cols-1 my-7 w-max max-w-full mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-x-4 my-7 w-full max-w-xl mx-auto">
                     {% unless site.links == empty %}
                     {% include links.html %}
                     {% endunless %}
