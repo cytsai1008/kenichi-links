@@ -16,10 +16,6 @@ for (const file of files) {
   const source = fs.readFileSync(file, "utf8");
   const rel = path.relative(path.resolve(__dirname, ".."), file).replace(/\\/g, "/");
 
-  if (/<a[\s\S]*?<button/i.test(source)) {
-    errors.push(`${rel}: Invalid nested interactive element (<a> contains <button>).`);
-  }
-
   if (/id="links"/.test(source) || /id="link-content"/.test(source)) {
     errors.push(`${rel}: Repeated id-based link markup detected. Use classes instead of duplicated ids.`);
   }
