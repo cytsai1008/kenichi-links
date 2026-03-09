@@ -159,16 +159,14 @@ jobs:
           mkdir -p "${SCREENSHOT_DIR}"
           cp -r "${GITHUB_WORKSPACE}/${SCREENSHOT_DIR}"/* "${SCREENSHOT_DIR}/" || echo "No screenshots to copy"
 
+          # Write epoch metadata so there is always a change to commit
+          echo "$(date +%s)" > "${SCREENSHOT_DIR}/.last-updated"
+
           # Stage and commit all changes (merge + screenshots)
           git add .
-
-          if [ -n "$(git diff --cached --name-only || true)" ]; then
-            git commit -m "Update screenshots" || true
-            # Push to deploy branch explicitly
-            git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:"${TARGET_BRANCH}" --follow-tags
-          else
-            echo "No changes to commit in worktree."
-          fi
+          git commit -m "Update screenshots ($(date +%s))" || true
+          # Push to deploy branch explicitly
+          git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:"${TARGET_BRANCH}" --follow-tags
 
           popd >/dev/null
 
