@@ -1,6 +1,6 @@
 {% for imglinks in site.imglinks %}
 {% if imglinks.URL %}
-<a class="links flex min-h-auto font-semibold my-2.5 mx-5 px-5 py-1.5 rounded-md w-32 h-14 place-content-center text-white hover:opacity-75 lg:m-5 md:m-5 sm:m-3.5"
+<a class="links flex min-h-auto font-semibold my-2.5 mx-5 px-5 py-1.5 rounded-md w-full h-14 place-content-center text-white hover:opacity-75 lg:m-5 md:m-5 sm:m-3.5"
     href="{{ imglinks.URL | rtrim '/' }}{% if imglinks.Username %}/{{ imglinks.Username }}{% endif %}"
     target="_blank"
     rel="noopener noreferrer"
