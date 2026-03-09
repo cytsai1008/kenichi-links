@@ -8,6 +8,20 @@
   --font-sans: "Poppins", "Noto Sans TC", sans-serif;
 }
 
+.link-anchor {
+  @apply flex outline-none;
+  @apply focus-visible:outline focus-visible:outline-[0.2rem] focus-visible:outline-offset-[0.2rem] focus-visible:outline-white;
+}
+
+.links {
+  @apply my-2.5 flex h-14 w-full items-center justify-center rounded-md px-5 py-1.5;
+  @apply font-semibold whitespace-nowrap text-white;
+  @apply transition-[transform,text-shadow,opacity] duration-[500ms] ease-[cubic-bezier(0.45,0,0.55,1)];
+  @apply [text-shadow:0_0.05rem_0.25rem_rgba(0,0,0,0.05)];
+  @apply hover:scale-105 hover:opacity-80 hover:[text-shadow:0_0.25rem_0.75rem_rgba(0,0,0,0.3)];
+  @apply motion-reduce:transition-none motion-reduce:hover:scale-100;
+}
+
 /* scale(-1, 1) rotate(45deg) can't be expressed as a single Tailwind utility */
 .links .fa-hand-paper {
   transform: scale(-1, 1) rotate(45deg);

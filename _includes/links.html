@@ -1,14 +1,14 @@
 {% for link in site.links -%}
   {%- if link.URL -%}
     <a
-      class="flex outline-none focus-visible:outline focus-visible:outline-[0.2rem] focus-visible:outline-white focus-visible:outline-offset-[0.2rem]"
+      class="link-anchor"
       href="{{ link.URL | rtrim '/' }}{% if link.Username %}/{{ link.Username }}{% endif %}"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="{{ link.Name }}"
     >
       <span
-        class="links my-2.5 flex h-14 min-h-auto w-full items-center justify-center rounded-md px-5 py-1.5 font-semibold whitespace-nowrap text-white transition-[transform,text-shadow,opacity] duration-[500ms] ease-[cubic-bezier(0.45,0,0.55,1)] [text-shadow:0_0.05rem_0.25rem_rgba(0,0,0,0.05)] hover:scale-105 hover:opacity-80 hover:[text-shadow:0_0.25rem_0.75rem_rgba(0,0,0,0.3)] motion-reduce:transition-none motion-reduce:hover:scale-100 {% if link.Color %}bg-[var(--link-bg)] shadow-[0px_10px_25px_0px_var(--link-shadow)]{% else %}border-[0.1rem] border-white shadow-[0px_10px_25px_0px_#ffffff80]{% endif %}"
+        class="links {% if link.Color %}bg-[var(--link-bg)] shadow-[0px_10px_25px_0px_var(--link-shadow)]{% else %}border-[0.1rem] border-white shadow-[0px_10px_25px_0px_#ffffff80]{% endif %}"
         style="{% if link.Color %}--link-bg: {{ link.Color }}; --link-shadow: {{ link.Color }}80;{% endif %}"
       >
         <span
