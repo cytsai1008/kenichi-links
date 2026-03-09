@@ -49,8 +49,7 @@ links:
   #    Icon-Class: fa-brands fa-threads
   #    Text_Color: '#ffffff'
   #
-
-    # Bluesky
+  # Bluesky
   - Name: Bluesky
     URL: https://furrybsky.photocat.blue
     Color: "#1185fe"
@@ -124,4 +123,3 @@ exclude:
 
 # Default Markdown Engine
 markdown: kramdown
-

@@ -37,7 +37,7 @@ const puppeteer = require("puppeteer");
 
     // Set a real user agent to avoid being blocked by font services
     await page.setUserAgent(
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
     );
 
     await page.setViewport({ width: 1200, height: 600 });
@@ -102,10 +102,7 @@ const puppeteer = require("puppeteer");
     process.exit(0);
   } catch (err) {
     // Helpful error output for debugging in CI logs
-    console.error(
-      "Failed to capture screenshot:",
-      err && err.message ? err.message : err,
-    );
+    console.error("Failed to capture screenshot:", err && err.message ? err.message : err);
     console.error(err && err.stack ? err.stack : "");
     process.exit(1);
   }

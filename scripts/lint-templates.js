@@ -17,11 +17,15 @@ for (const file of files) {
   const rel = path.relative(path.resolve(__dirname, ".."), file).replace(/\\/g, "/");
 
   if (/id="links"/.test(source) || /id="link-content"/.test(source)) {
-    errors.push(`${rel}: Repeated id-based link markup detected. Use classes instead of duplicated ids.`);
+    errors.push(
+      `${rel}: Repeated id-based link markup detected. Use classes instead of duplicated ids.`
+    );
   }
 
   if (/href="\/assets\//.test(source) || /src="assets\//.test(source)) {
-    errors.push(`${rel}: Found non-relative-url asset path. Prefer Liquid relative_url/absolute_url.`);
+    errors.push(
+      `${rel}: Found non-relative-url asset path. Prefer Liquid relative_url/absolute_url.`
+    );
   }
 }
 

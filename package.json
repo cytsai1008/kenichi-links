@@ -10,8 +10,11 @@
     "puppeteer": "^24.29.1"
   },
   "devDependencies": {
+    "@shopify/prettier-plugin-liquid": "^1.10.0",
     "@tailwindcss/cli": "^4.2.1",
     "nodemon": "^3.1.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-tailwindcss": "^0.7.2",
     "tailwindcss": "^4.2.1"
   },
   "scripts": {
@@ -21,7 +24,8 @@
     "ss": "node ./scripts/screenshot.js",
     "check:config": "node ./scripts/validate-config.js",
     "check:templates": "node ./scripts/lint-templates.js",
-    "check": "npm run check:config && npm run check:templates"
+    "check": "npm run check:config && npm run check:templates",
+    "format": "prettier --write \"**/*.{html,css,js,json,md,yml}\""
   },
   "keywords": [
     "links",

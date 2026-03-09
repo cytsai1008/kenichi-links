@@ -1,0 +1,6 @@
+_layouts/compress.html
+_site/
+node_modules/
+assets/css/main.css
+Gemfile
+Gemfile.lock

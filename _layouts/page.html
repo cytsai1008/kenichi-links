@@ -1,18 +1,17 @@
 ---
 layout: compress
 ---
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     {% include head.html %}
-</head>
+  </head>
 
-<body class="w-screen h-screen min-h-screen">
-    <div class="w-full h-full p-2.5 text-9xl text-center font-black mx-auto grid place-content-center">
-        {{content}}
+  <body class="h-screen min-h-screen w-screen">
+    <div
+      class="mx-auto grid h-full w-full place-content-center p-2.5 text-center text-9xl font-black"
+    >
+      {{ content }}
     </div>
-</body>
-
+  </body>
 </html>
