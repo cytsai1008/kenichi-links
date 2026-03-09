@@ -12,7 +12,6 @@ Gemfile.lock
 # Logs
 logs
 *.log
-package-lock.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -196,3 +195,4 @@ Icon
 # End of https://www.toptal.com/developers/gitignore/api/node,jekyll,ruby,sass
 
 .idea/*
+assets/css/main.css

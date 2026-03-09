@@ -1,5 +1,10 @@
 # YOUR NAME OR TITLE OF YOUR SITE
 name: 健一 Kenichi
+title: 健一 | Kenichi
+description: 一隻寫程式和拍照的藍貓，大佬椒麻
+lang: zh-Hant
+url: https://link.photocat.blue
+social_image: /assets/og/screenshot.png
 
 # YOUR BRAND/PERSONAL TAGLINE
 tagline: |
@@ -89,6 +94,10 @@ imglinks:
 # YOU CAN REMOVE FOOTER COMPLETELY BY SIMPLY REMOVING EITHER THE YES OR REMOVING THE FOOTER STATEMENT BELOW COMPLETELY
 # footer: 'Yes'
 
+analytics:
+  google_tag: G-ZY2YYK5KX0
+  clarity_id: u750qhcmes
+
 # STOP EDITING HERE ---------- YOU'VE REACHED THE END OF THE CONFIGURATION
 
 # Compress
@@ -107,10 +116,12 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
-  - Icon
+  - tailwind.config.js
+  - _tailwind/
 
 # Base URL
 # baseurl: /links
 
 # Default Markdown Engine
 markdown: kramdown
+
