@@ -20,4 +20,4 @@ gem "jekyll", "~> 4.3"
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Performance-booster for watching directories on Windows
-gem "wdm" if Gem.win_platform?
+gem "wdm", "~> 0.2.0" if Gem.win_platform? && Gem::Version.new(RUBY_VERSION) < Gem::Version.new("4.0")
