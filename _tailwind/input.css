@@ -5,7 +5,7 @@
 @source "../*.md";
 
 @theme {
-  --font-sans: "Poppins", "Noto Sans TC", sans-serif;
+  --font-sans: "Chiron GoRound TC", sans-serif;
 }
 
 .link-anchor {
@@ -16,9 +16,12 @@
 .links {
   @apply my-2.5 flex h-14 w-full items-center justify-center rounded-md px-5 py-1.5;
   @apply font-semibold whitespace-nowrap text-white;
-  @apply transition-[transform,text-shadow,opacity] duration-[500ms] ease-[cubic-bezier(0.45,0,0.55,1)];
+  transition: transform 200ms cubic-bezier(0.45,0,0.55,1),
+              scale 200ms cubic-bezier(0.45,0,0.55,1),
+              text-shadow 200ms cubic-bezier(0.45,0,0.55,1),
+              opacity 150ms cubic-bezier(0.45,0,0.55,1);
   @apply [text-shadow:0_0.05rem_0.25rem_rgba(0,0,0,0.05)];
-  @apply hover:scale-105 hover:opacity-80 hover:[text-shadow:0_0.25rem_0.75rem_rgba(0,0,0,0.3)];
+  @apply hover:scale-110 hover:opacity-80 hover:[text-shadow:0_0.25rem_0.75rem_rgba(0,0,0,0.3)];
   @apply motion-reduce:transition-none motion-reduce:hover:scale-100;
 }
 
