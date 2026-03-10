@@ -58,32 +58,33 @@ const puppeteer = require("puppeteer");
     await page.waitForNetworkIdle({ idleTime: 500, timeout: 30000 });
 
     // Diagnose font loading
-    const fontInfo = await page.evaluate(async () => {
+    await page.evaluate(async () => {
+      const doc = globalThis.document;
       // Wait for document fonts to be ready
-      await document.fonts.ready;
+      await doc.fonts.ready;
 
       // Force load all fonts by rendering them
-      const tempDiv = document.createElement("div");
+      const tempDiv = doc.createElement("div");
       tempDiv.style.position = "absolute";
       tempDiv.style.left = "-9999px";
       tempDiv.style.fontFamily =
         'Poppins, "Noto Sans TC", "Font Awesome 7 Free", "Font Awesome 7 Brands"';
       tempDiv.innerHTML = "Loading fonts... 載入字體...";
-      document.body.appendChild(tempDiv);
+      doc.body.appendChild(tempDiv);
 
       // Trigger font load by forcing layout
       tempDiv.offsetHeight;
 
       // Wait for fonts to actually load
       await Promise.all([
-        document.fonts.load("400 16px Poppins"),
-        document.fonts.load('400 16px "Noto Sans TC"'),
-        document.fonts.load('400 16px "Font Awesome 7 Free"'),
-        document.fonts.load('400 16px "Font Awesome 7 Brands"'),
+        doc.fonts.load("400 16px Poppins"),
+        doc.fonts.load('400 16px "Noto Sans TC"'),
+        doc.fonts.load('400 16px "Font Awesome 7 Free"'),
+        doc.fonts.load('400 16px "Font Awesome 7 Brands"'),
       ]).catch(() => {});
 
       // Remove temp div
-      document.body.removeChild(tempDiv);
+      doc.body.removeChild(tempDiv);
     });
 
     console.log("Fonts loaded, capturing screenshot...");
