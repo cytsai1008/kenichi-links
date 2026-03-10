@@ -20,15 +20,14 @@ layout: compress
             decoding="async"
             alt=""
             aria-hidden="true"
-            class="h-full w-full scale-110 object-cover object-center"
-            style="filter: blur(15px)"
+            class="h-full w-full scale-110 object-cover object-center blur-md"
           >
         </div>
         <div class="absolute z-20 h-full w-full bg-black opacity-60"></div>
         <span class="z-30 text-center">
           <img
             id="image"
-            class="m-auto w-1/2 rounded-lg shadow-2xl transition-transform duration-500 motion-reduce:transition-none sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/6 2xl:w-1/6"
+            class="m-auto w-1/2 rounded-lg shadow-2xl motion-reduce:transition-none sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/6 2xl:w-1/6"
             src="https://images.weserv.nl/?url={{ site.Image_URL }}&h=300&w=300&fit=cover&l=9&output=webp&q=75"
             onError="this.onerror=null;this.src='{{ site.Image_URL }}';"
             alt="{{ site.name }}"
@@ -67,5 +66,78 @@ layout: compress
         {% endif %}
       </div>
     </div>
+    <script>
+      (function () {
+        const img = document.getElementById('image');
+        if (!img) return;
+
+        let isDragging = false;
+        let startCursorX = 0,
+          startCursorY = 0;
+        let startGsapX = 0,
+          startGsapY = 0;
+
+        img.style.cursor = 'grab';
+        img.draggable = false;
+
+        img.addEventListener('mousedown', function (e) {
+          isDragging = true;
+          startCursorX = e.clientX;
+          startCursorY = e.clientY;
+          startGsapX = parseFloat(gsap.getProperty(img, 'x')) || 0;
+          startGsapY = parseFloat(gsap.getProperty(img, 'y')) || 0;
+          gsap.killTweensOf(img);
+          img.style.cursor = 'grabbing';
+          e.preventDefault();
+        });
+
+        img.addEventListener(
+          'touchstart',
+          function (e) {
+            isDragging = true;
+            startCursorX = e.touches[0].clientX;
+            startCursorY = e.touches[0].clientY;
+            startGsapX = parseFloat(gsap.getProperty(img, 'x')) || 0;
+            startGsapY = parseFloat(gsap.getProperty(img, 'y')) || 0;
+            gsap.killTweensOf(img);
+            e.preventDefault();
+          },
+          { passive: false }
+        );
+
+        window.addEventListener('mousemove', function (e) {
+          if (!isDragging) return;
+          gsap.set(img, {
+            x: startGsapX + (e.clientX - startCursorX),
+            y: startGsapY + (e.clientY - startCursorY),
+          });
+        });
+
+        window.addEventListener(
+          'touchmove',
+          function (e) {
+            if (!isDragging) return;
+            gsap.set(img, {
+              x: startGsapX + (e.touches[0].clientX - startCursorX),
+              y: startGsapY + (e.touches[0].clientY - startCursorY),
+            });
+          },
+          { passive: false }
+        );
+
+        window.addEventListener('mouseup', function () {
+          if (!isDragging) return;
+          isDragging = false;
+          img.style.cursor = 'grab';
+          gsap.to(img, { duration: 1, x: 0, y: 0, ease: 'elastic.out(1, 0.4)' });
+        });
+
+        window.addEventListener('touchend', function () {
+          if (!isDragging) return;
+          isDragging = false;
+          gsap.to(img, { duration: 1, x: 0, y: 0, ease: 'elastic.out(1, 0.4)' });
+        });
+      })();
+    </script>
   </body>
 </html>
