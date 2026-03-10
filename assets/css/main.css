@@ -537,7 +537,7 @@
   font-weight: var(--font-weight-semibold);
   white-space: nowrap;
   color: var(--color-white);
-  transition: transform 200ms cubic-bezier(0.45,0,0.55,1), scale 200ms cubic-bezier(0.45,0,0.55,1), text-shadow 200ms cubic-bezier(0.45,0,0.55,1), opacity 150ms cubic-bezier(0.45,0,0.55,1);
+  transition: transform 200ms cubic-bezier(0.45, 0, 0.55, 1), scale 200ms cubic-bezier(0.45, 0, 0.55, 1), text-shadow 200ms cubic-bezier(0.45, 0, 0.55, 1), opacity 150ms cubic-bezier(0.45, 0, 0.55, 1);
   text-shadow: 0 0.05rem 0.25rem rgba(0,0,0,0.05);
   &:hover {
     @media (hover: hover) {
