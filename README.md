@@ -59,4 +59,4 @@ Based on [Links](https://github.com/harsh98trivedi/Links).
 
 ## License
 
-This repository is licensed under [GNU GPL v2](./LICENSE).
+This repository is licensed under [MIT License](./LICENSE).
