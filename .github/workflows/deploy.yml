@@ -154,10 +154,12 @@ jobs:
             git commit -m "Merge main into ${TARGET_BRANCH} (auto-resolved)"
           }
 
-          # Copy updated screenshots from the main workspace
-          echo "Copying updated screenshots from workspace..."
+          # Copy updated screenshots and CSS from the main workspace
+          echo "Copying updated screenshots and CSS from workspace..."
           mkdir -p "${SCREENSHOT_DIR}"
           cp -r "${GITHUB_WORKSPACE}/${SCREENSHOT_DIR}"/* "${SCREENSHOT_DIR}/" || echo "No screenshots to copy"
+          mkdir -p "assets/css"
+          cp "${GITHUB_WORKSPACE}/assets/css/main.css" "assets/css/main.css" || echo "No CSS to copy"
 
           # Write epoch metadata so there is always a change to commit
           echo "$(date +%s)" > "${SCREENSHOT_DIR}/.last-updated"
