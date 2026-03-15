@@ -7,7 +7,7 @@
     "node": ">=22"
   },
   "dependencies": {
-    "puppeteer": "^24.29.1"
+    "puppeteer": "^24.39.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
