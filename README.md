@@ -1,51 +1,68 @@
 # personal-links
 
-Personal landing page for social profiles, built with Jekyll.
+My landing page for social profiles, built with Jekyll.
 
 ## Local development
 
-Prerequisites:
-
-- Ruby + Bundler
-- Node.js (only needed for screenshot tooling)
-
-Install and run:
+You need Ruby + Bundler and Node.js >= 22.
 
 ```bash
 bundle install
-bundle exec jekyll serve
+npm install
+npm run serve
 ```
 
 Open `http://localhost:4000`.
 
 ## Configuration
 
-All content is in [`_config.yml`](./_config.yml):
+Everything is in [`_config.yml`](./_config.yml):
 
-- Profile identity: `name`, `title`, `description`, `tagline`
-- Branding: `Image_URL`, `Cover_Image`
-- Links: `links` and `imglinks`
-- SEO/social: `url`, `social_image`, `lang`
-- Analytics (optional): `analytics.google_tag`, `analytics.clarity_id`
+```yaml
+name: Your Name          # displayed as the page heading; also used as avatar alt text
+title: Your Name | Site  # browser tab title (defaults to name)
+description: ...         # meta description (defaults to tagline, HTML stripped)
+tagline: |               # shown below your name; supports <br> for line breaks
+  Line one<br>
+  Line two
+lang: zh-Hant            # html[lang] attribute (defaults to en)
+
+url: https://example.com        # canonical base URL for OG/SEO
+social_image: /assets/og/screenshot.png  # OG/Twitter preview image
+Image_URL: https://...          # avatar image (run through weserv.nl for WebP + caching)
+Cover_Image: https://...        # blurred background image
+
+analytics:               # remove either key to disable that service
+  google_tag: G-XXXXXXX
+  clarity_id: xxxxxxxxx
+
+links:
+  - Name: GitHub                # button label
+    URL: https://github.com     # base URL; if Username is set, final href is URL/Username
+    Username: yourname          # optional
+    Color: "#cccccc"            # button background; omit for white-border style
+    Text_Color: "#000000"       # icon + text color; defaults to white
+    Icon-Class: fab fa-github   # Font Awesome class
+
+imglinks:
+  - Name: VRChat
+    URL: https://vrchat.com/home/user/...
+    Color: "#003333"
+    Text_Color: "#ffffff"
+    Img_URL: "vrc-logo-cropped.svg"  # filename inside assets/images/links/
+```
+
+To disable a link, comment it out.
 
 ## Open Graph screenshot
 
-Generate/update OG screenshot:
-
 ```bash
-npm install
 npm run ss
 ```
 
-Optional env vars:
-
-- `SCREENSHOT_URL`
-- `SCREENSHOT_DIR`
-- `SCREENSHOT_OUTPUT`
+Defaults to `http://localhost:4000/`, saving to `assets/og/screenshot.png`. Override with `SCREENSHOT_URL`, `SCREENSHOT_DIR`, or `SCREENSHOT_OUTPUT`.
 
 ## Quality checks
-
-Run project checks locally:
 
 ```bash
 npm run check
@@ -59,4 +76,4 @@ Based on [Links](https://github.com/harsh98trivedi/Links).
 
 ## License
 
-This repository is licensed under [MIT License](./LICENSE).
+[MIT](./LICENSE).

@@ -21,7 +21,7 @@
     "tailwindcss": "^4.2.1"
   },
   "scripts": {
-    "build:css": "tailwindcss -i ./_tailwind/input.css -o ./assets/css/main.css",
+    "build:css": "tailwindcss -i ./_tailwind/input.css -o ./assets/css/main.css --minify",
     "watch:css": "tailwindcss -i ./_tailwind/input.css -o ./assets/css/main.css --watch",
     "serve": "npm run build:css && bundle exec jekyll serve",
     "ss": "node ./scripts/screenshot.js",
