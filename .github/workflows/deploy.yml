@@ -103,7 +103,7 @@ jobs:
           git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
           git fetch origin --prune
 
-      - name: Merge master to deploy and update screenshots
+      - name: Merge main to deploy and update screenshots
         run: |
           set -euo pipefail
 
@@ -125,12 +125,12 @@ jobs:
             # Create worktree on the local branch (not detached HEAD)
             git worktree add --checkout "${WORKTREE_DIR}" "${TARGET_BRANCH}"
           else
-            echo "Remote branch origin/${TARGET_BRANCH} does not exist. Creating from master."
-            git worktree add -b "${TARGET_BRANCH}" "${WORKTREE_DIR}" origin/master
+            echo "Remote branch origin/${TARGET_BRANCH} does not exist. Creating from main."
+            git worktree add -b "${TARGET_BRANCH}" "${WORKTREE_DIR}" origin/main
             pushd "${WORKTREE_DIR}" >/dev/null
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git commit --allow-empty -m "Initialize ${TARGET_BRANCH} branch from master"
+            git commit --allow-empty -m "Initialize ${TARGET_BRANCH} branch from main"
             git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" "${TARGET_BRANCH}"
             popd >/dev/null
           fi
@@ -140,18 +140,18 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Merge master branch into deploy
-          echo "Merging origin/master into ${TARGET_BRANCH}..."
-          git merge origin/master --allow-unrelated-histories -m "Merge master into ${TARGET_BRANCH}" || {
-            echo "Merge conflict detected, attempting to resolve by preferring master for all files except screenshots..."
-            # Accept all changes from master
+          # Merge main branch into deploy
+          echo "Merging origin/main into ${TARGET_BRANCH}..."
+          git merge origin/main --allow-unrelated-histories -m "Merge main into ${TARGET_BRANCH}" || {
+            echo "Merge conflict detected, attempting to resolve by preferring main for all files except screenshots..."
+            # Accept all changes from main
             git checkout --theirs .
             # But keep our screenshots
             if [ -d "assets/og" ] && [ -n "$(ls -A assets/og 2>/dev/null)" ]; then
               git checkout --ours -- assets/og || true
             fi
             git add .
-            git commit -m "Merge master into ${TARGET_BRANCH} (auto-resolved)"
+            git commit -m "Merge main into ${TARGET_BRANCH} (auto-resolved)"
           }
 
           # Copy updated screenshots from the main workspace
