@@ -1,13 +1,12 @@
 {
-  "name": "links",
+  "name": "kenichi-links",
   "version": "1.0.0",
-  "description": "A Beautiful Jekyll Theme For Links",
-  "main": "postcss.config.js",
-  "engines": {
+  "description": "A Jekyll Theme to show some of my links",
+"engines": {
     "node": ">=22"
   },
   "dependencies": {
-    "puppeteer": "^24.29.1"
+    "puppeteer": "^24.39.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
