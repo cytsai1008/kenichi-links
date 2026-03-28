@@ -1,6 +1,3 @@
-_layouts/compress.html
-_site/
+dist/
 node_modules/
-assets/css/main.css
-Gemfile
-Gemfile.lock
+.claude/

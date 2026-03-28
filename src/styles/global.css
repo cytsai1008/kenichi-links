@@ -1,8 +1,6 @@
 @import "tailwindcss";
 
-@source "../_includes/**/*.html";
-@source "../_layouts/**/*.html";
-@source "../*.md";
+@source "../**/*.astro";
 
 @theme {
   --font-sans: "Chiron GoRound TC", sans-serif;

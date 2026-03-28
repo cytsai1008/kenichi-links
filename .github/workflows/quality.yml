@@ -16,12 +16,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.3"
-          bundler-cache: true
-
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
@@ -33,11 +27,8 @@ jobs:
         env:
           CI: "true"
 
-      - name: Validate configuration and templates
-        run: npm run check
-
-      - name: Build Tailwind CSS
-        run: npm run build:css
+      - name: Lint
+        run: npm run lint
 
       - name: Build site
-        run: bundle exec jekyll build
+        run: npm run build
