@@ -135,18 +135,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Merge main branch into deploy
+          # Merge main branch into deploy, preferring main on any conflict.
+          # -X theirs handles modify/delete conflicts correctly (accepts deletions from main).
           echo "Merging origin/main into ${TARGET_BRANCH}..."
-          git merge origin/main --allow-unrelated-histories -m "Merge main into ${TARGET_BRANCH}" || {
-            echo "Merge conflict detected, attempting to resolve by preferring main for all files except screenshots..."
-            # Accept all changes from main
-            git checkout --theirs .
-            # But keep our screenshots
-            if [ -d "assets/og" ] && [ -n "$(ls -A assets/og 2>/dev/null)" ]; then
-              git checkout --ours -- assets/og || true
-            fi
-            git add .
-            git commit -m "Merge main into ${TARGET_BRANCH} (auto-resolved)"
+          git merge origin/main --allow-unrelated-histories -X theirs -m "Merge main into ${TARGET_BRANCH}" || {
+            echo "Merge failed even with -X theirs, aborting"
+            git merge --abort || true
+            exit 1
           }
 
           # Copy updated screenshots from the main workspace
