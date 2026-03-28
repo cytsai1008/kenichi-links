@@ -73,7 +73,7 @@ export const siteConfig: SiteConfig = {
     },
     {
       name: "GitHub",
-      url: "http://github.com",
+      url: "https://github.com",
       username: "cytsai1008",
       color: "#cccccc",
       textColor: "#000000",
