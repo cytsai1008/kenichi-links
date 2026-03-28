@@ -1,8 +1,9 @@
 import js from "@eslint/js";
-import html from "eslint-plugin-html";
+import astro from "eslint-plugin-astro";
 
 export default [
   js.configs.recommended,
+  ...astro.configs.recommended,
   {
     files: ["scripts/**/*.js"],
     languageOptions: {
@@ -16,20 +17,6 @@ export default [
         __dirname: "readonly",
         URL: "readonly",
         setTimeout: "readonly",
-      },
-    },
-  },
-  {
-    files: ["_layouts/**/*.html", "_includes/**/*.html"],
-    plugins: { html },
-    languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: "script",
-      globals: {
-        window: "readonly",
-        document: "readonly",
-        gsap: "readonly",
-        console: "readonly",
       },
     },
   },

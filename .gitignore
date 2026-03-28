@@ -1,12 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/node,jekyll,ruby,sass
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,jekyll,ruby,sass
 
-### Jekyll ###
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
-# Gemfile.lock
+### Astro ###
+dist/
+.astro/
 
 ### Node ###
 # Logs

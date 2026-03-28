@@ -1,0 +1,73 @@
+---
+import "../styles/global.css";
+import { siteConfig } from "../data/config";
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: string;
+  bodyClass?: string;
+}
+
+const {
+  title = siteConfig.title,
+  description = siteConfig.description,
+  lang = siteConfig.lang,
+  bodyClass = "bg-black font-sans text-white",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, siteConfig.url);
+const socialImageURL = new URL(siteConfig.socialImage, siteConfig.url);
+
+const { googleTag, clarityId } = siteConfig.analytics;
+const googleTagHTML = googleTag
+  ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${googleTag}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){window.dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${googleTag}');</script>`
+  : "";
+const clarityHTML = clarityId
+  ? `<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,'clarity','script','${clarityId}');</script>`
+  : "";
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@200..900&display=swap"
+      rel="stylesheet"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, initial-scale=1, user-scalable=no, shrink-to-fit=no"
+    />
+    <meta name="description" content={description} />
+    <meta content="#000000" name="theme-color" />
+    <title>{title}</title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+    <script is:inline src="https://kit.fontawesome.com/95f76bffa8.js" crossorigin="anonymous"
+    ></script>
+
+    <Fragment set:html={googleTagHTML} />
+    <Fragment set:html={clarityHTML} />
+
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="600" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
+  </head>
+  <body class={bodyClass}>
+    <slot />
+  </body>
+</html>
