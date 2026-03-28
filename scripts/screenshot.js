@@ -1,13 +1,16 @@
-const fs = require("fs");
-const path = require("path");
-const puppeteer = require("puppeteer");
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import puppeteer from "puppeteer";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 (async () => {
   try {
     // Output directory and file (adjust via env if needed)
     const outDir = process.env.SCREENSHOT_DIR
       ? path.resolve(process.env.SCREENSHOT_DIR)
-      : path.resolve(__dirname, "..", "assets", "og");
+      : path.resolve(__dirname, "..", "public", "assets", "og");
     const outFile = process.env.SCREENSHOT_OUTPUT
       ? path.resolve(process.env.SCREENSHOT_OUTPUT)
       : path.join(outDir, "screenshot.png");
@@ -68,7 +71,7 @@ const puppeteer = require("puppeteer");
       tempDiv.style.position = "absolute";
       tempDiv.style.left = "-9999px";
       tempDiv.style.fontFamily =
-        'Poppins, "Noto Sans TC", "Font Awesome 7 Free", "Font Awesome 7 Brands"';
+        'Chiron GoRound TC, "Font Awesome 7 Free", "Font Awesome 7 Brands"';
       tempDiv.innerHTML = "Loading fonts... 載入字體...";
       doc.body.appendChild(tempDiv);
 
@@ -77,8 +80,7 @@ const puppeteer = require("puppeteer");
 
       // Wait for fonts to actually load
       await Promise.all([
-        doc.fonts.load("400 16px Poppins"),
-        doc.fonts.load('400 16px "Noto Sans TC"'),
+        doc.fonts.load("400 16px Chiron GoRound TC"),
         doc.fonts.load('400 16px "Font Awesome 7 Free"'),
         doc.fonts.load('400 16px "Font Awesome 7 Brands"'),
       ]).catch(() => {});
