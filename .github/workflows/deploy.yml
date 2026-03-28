@@ -135,11 +135,19 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Merge main branch into deploy, preferring main on any conflict.
-          # -X theirs handles modify/delete conflicts correctly (accepts deletions from main).
+          # Pre-remove files that were deleted in main so git doesn't produce
+          # modify/delete conflicts (those are not resolved by -X theirs).
+          deleted_in_main=$(git diff --name-only --diff-filter=D HEAD..origin/main)
+          if [ -n "$deleted_in_main" ]; then
+            echo "Pre-removing files deleted in main: $deleted_in_main"
+            echo "$deleted_in_main" | xargs git rm -rf --ignore-unmatch
+            git diff --staged --quiet || git commit -m "Pre-remove files deleted in main"
+          fi
+
+          # Merge main branch into deploy, preferring main on any remaining conflict.
           echo "Merging origin/main into ${TARGET_BRANCH}..."
           git merge origin/main --allow-unrelated-histories -X theirs -m "Merge main into ${TARGET_BRANCH}" || {
-            echo "Merge failed even with -X theirs, aborting"
+            echo "Merge failed, aborting"
             git merge --abort || true
             exit 1
           }
