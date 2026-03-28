@@ -1,39 +1,35 @@
 {
   "name": "kenichi-links",
+  "type": "module",
   "version": "1.0.0",
-  "description": "A Jekyll Theme to show some of my links",
-"engines": {
+  "description": "A personal landing page for social profiles",
+  "engines": {
     "node": ">=22"
   },
   "dependencies": {
+    "gsap": "^3.14.2",
     "puppeteer": "^24.39.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@shopify/prettier-plugin-liquid": "^1.10.0",
-    "@tailwindcss/cli": "^4.2.1",
+    "@tailwindcss/vite": "^4.2.2",
+    "@typescript-eslint/parser": "^8.57.2",
+    "astro": "^6.1.1",
     "eslint": "^10.0.3",
-    "eslint-plugin-html": "^8.1.4",
-    "nodemon": "^3.1.0",
+    "eslint-plugin-astro": "^1.6.0",
     "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "tailwindcss": "^4.2.1"
   },
   "scripts": {
-    "build:css": "tailwindcss -i ./_tailwind/input.css -o ./assets/css/main.css --minify",
-    "watch:css": "tailwindcss -i ./_tailwind/input.css -o ./assets/css/main.css --watch",
-    "serve": "npm run build:css && bundle exec jekyll serve",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
     "ss": "node ./scripts/screenshot.js",
-    "check:config": "node ./scripts/validate-config.js",
-    "check:templates": "node ./scripts/lint-templates.js",
-    "check": "npm run check:config && npm run check:templates",
-    "lint": "eslint \"scripts/**/*.js\" \"_layouts/**/*.html\" \"_includes/**/*.html\"",
-    "format": "prettier --write \"**/*.{html,css,js,json,md,yml}\""
+    "lint": "eslint \"scripts/**/*.js\" \"src/**/*.astro\"",
+    "format": "prettier --write \"**/*.{astro,css,js,json,md,ts,yml}\""
   },
-  "keywords": [
-    "links",
-    "jekyll"
-  ],
   "author": "CYTsai",
   "license": "MIT"
 }

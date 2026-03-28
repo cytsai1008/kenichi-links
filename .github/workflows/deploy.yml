@@ -31,13 +31,6 @@ jobs:
             echo "lockfile=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Setup Ruby for Jekyll preview
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.3"
-          bundler-cache: true
-          cache-version: 0
-
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
@@ -64,12 +57,14 @@ jobs:
         env:
           CI: "true"
 
-      - name: Build Tailwind CSS
-        run: npm run build:css
+      - name: Build site
+        run: npm run build
+        env:
+          CI: "true"
 
       - name: Start local server and wait for availability
         run: |
-          npm run serve &>/tmp/serve.log &
+          npx astro preview --port 4000 &>/tmp/serve.log &
           echo "Started local server, logging to /tmp/serve.log"
           MAX_WAIT=60
           URL="${{ env.SCREENSHOT_URL_OVERRIDE || 'http://localhost:4000/' }}"
@@ -94,7 +89,7 @@ jobs:
         run: npm run ss
         env:
           SCREENSHOT_URL: ${{ env.SCREENSHOT_URL_OVERRIDE || 'http://localhost:4000/' }}
-          SCREENSHOT_DIR: assets/og
+          SCREENSHOT_DIR: public/assets/og
 
       - name: Prepare git for deploy branch operations
         run: |
@@ -109,7 +104,7 @@ jobs:
 
           TARGET_BRANCH="deploy"
           WORKTREE_DIR="$(mktemp -d /tmp/deploy-worktree-XXXX)"
-          SCREENSHOT_DIR="assets/og"
+          SCREENSHOT_DIR="public/assets/og"
 
           echo "Using worktree dir: ${WORKTREE_DIR}"
           echo "Target deploy branch: ${TARGET_BRANCH}"
@@ -140,26 +135,27 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Merge main branch into deploy
+          # Pre-remove files that were deleted in main so git doesn't produce
+          # modify/delete conflicts (those are not resolved by -X theirs).
+          deleted_in_main=$(git diff --name-only --diff-filter=D HEAD..origin/main)
+          if [ -n "$deleted_in_main" ]; then
+            echo "Pre-removing files deleted in main: $deleted_in_main"
+            echo "$deleted_in_main" | xargs git rm -rf --ignore-unmatch
+            git diff --staged --quiet || git commit -m "Pre-remove files deleted in main"
+          fi
+
+          # Merge main branch into deploy, preferring main on any remaining conflict.
           echo "Merging origin/main into ${TARGET_BRANCH}..."
-          git merge origin/main --allow-unrelated-histories -m "Merge main into ${TARGET_BRANCH}" || {
-            echo "Merge conflict detected, attempting to resolve by preferring main for all files except screenshots..."
-            # Accept all changes from main
-            git checkout --theirs .
-            # But keep our screenshots
-            if [ -d "assets/og" ] && [ -n "$(ls -A assets/og 2>/dev/null)" ]; then
-              git checkout --ours -- assets/og || true
-            fi
-            git add .
-            git commit -m "Merge main into ${TARGET_BRANCH} (auto-resolved)"
+          git merge origin/main --allow-unrelated-histories -X theirs -m "Merge main into ${TARGET_BRANCH}" || {
+            echo "Merge failed, aborting"
+            git merge --abort || true
+            exit 1
           }
 
-          # Copy updated screenshots and CSS from the main workspace
-          echo "Copying updated screenshots and CSS from workspace..."
+          # Copy updated screenshots from the main workspace
+          echo "Copying updated screenshots from workspace..."
           mkdir -p "${SCREENSHOT_DIR}"
           cp -r "${GITHUB_WORKSPACE}/${SCREENSHOT_DIR}"/* "${SCREENSHOT_DIR}/" || echo "No screenshots to copy"
-          mkdir -p "assets/css"
-          cp "${GITHUB_WORKSPACE}/assets/css/main.css" "assets/css/main.css" || echo "No CSS to copy"
 
           # Write epoch metadata so there is always a change to commit
           echo "$(date +%s)" > "${SCREENSHOT_DIR}/.last-updated"

@@ -6,36 +6,36 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 # Development
-npm run serve          # Build CSS + start Jekyll dev server at localhost:4000
-npm run watch:css      # Watch & rebuild Tailwind CSS only
+npm run dev            # Start Astro dev server at localhost:4000
 
 # Build
-npm run build:css      # Compile Tailwind CSS (input: _tailwind/input.css → assets/css/main.css)
-bundle exec jekyll build  # Build static site
+npm run build          # Build static site to dist/
+npm run preview        # Serve built site locally
 
 # Quality checks
-npm run check          # Run both config & template validators
-npm run lint           # ESLint on JS and HTML files
+npm run lint           # ESLint on JS and Astro files
 npm run format         # Prettier formatting
 
 # OpenGraph screenshot
-npm run ss             # Generate OG preview image via Puppeteer (saves to assets/og/)
+npm run ss             # Generate OG preview image via Puppeteer (saves to public/assets/og/)
 ```
 
-Node >= 22 and Ruby 3.3 are required. Run `bundle install` for Ruby gems.
+Node >= 22 is required.
 
 ## Architecture
 
-**Static site:** Jekyll processes `index.md` and `404.md` through layouts in `_layouts/`, inserting components from `_includes/`. All profile data, social links, and image links are configured in `_config.yml` — the templates loop over this data rather than hardcoding content.
+**Static site:** Astro processes `src/pages/index.astro` and `src/pages/404.astro` through layouts in `src/layouts/`, using components from `src/components/`. All profile data, social links, and image links are configured in `src/data/config.ts` — the templates reference this data rather than hardcoding content.
 
-**CSS pipeline:** Tailwind CSS v4 reads `_tailwind/input.css` and scans templates to generate `assets/css/main.css`. Custom font theming and component classes are defined in `_tailwind/input.css`. The compiled CSS is committed to the repo.
+**CSS pipeline:** Tailwind CSS v4 is integrated via `@tailwindcss/vite` (Vite plugin). Source styles are in `src/styles/global.css`. Tailwind scans all `src/**/*.astro` files for classes. No separate build step — Vite handles compilation with HMR in dev and minification in production.
 
 **Key files:**
-- `_config.yml` — all site content (profile, links list, image links, analytics IDs)
-- `_layouts/default.html` — main page layout, references `_includes/links.html` and `_includes/imglinks.html`
-- `_includes/head.html` — metadata, fonts (Chiron GoRound TC, Poppins, Noto Sans TC, Font Awesome 7), analytics, OG tags
-- `_tailwind/input.css` — Tailwind source with custom component classes
 
-**Interactive features:** GSAP animates the avatar image (draggable with elastic bounce-back). Avatar is loaded via weserv.nl CDN for WebP conversion and caching.
+- `src/data/config.ts` — all site content (profile, links list, image links, analytics IDs)
+- `src/layouts/Layout.astro` — main page layout with head, meta, OG tags, analytics scripts
+- `src/layouts/PageLayout.astro` — minimal centered layout for 404
+- `src/pages/index.astro` — main page with background, avatar, links grid, GSAP script
+- `src/styles/global.css` — Tailwind v4 source with custom component classes
 
-**CI:** `.github/workflows/quality.yml` runs config validation, template linting, CSS build, and Jekyll build on every push.
+**Interactive features:** GSAP (installed via npm) animates the avatar image (draggable with elastic bounce-back). The script is bundled by Vite and imported as an ES module in `index.astro`. Avatar is loaded via weserv.nl CDN for WebP conversion and caching.
+
+**CI:** `.github/workflows/quality.yml` runs linting and Astro build on every push.

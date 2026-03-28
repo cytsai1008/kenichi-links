@@ -1,58 +1,64 @@
 # personal-links
 
-My landing page for social profiles, built with Jekyll.
+My landing page for social profiles, built with Astro.
 
 ## Local development
 
-You need Ruby + Bundler and Node.js >= 22.
+You need Node.js >= 22.
 
 ```bash
-bundle install
 npm install
-npm run serve
+npm run dev
 ```
 
 Open `http://localhost:4000`.
 
 ## Configuration
 
-Everything is in [`_config.yml`](./_config.yml):
+Everything is in [`src/data/config.ts`](./src/data/config.ts):
 
-```yaml
-name: Your Name          # displayed as the page heading; also used as avatar alt text
-title: Your Name | Site  # browser tab title (defaults to name)
-description: ...         # meta description (defaults to tagline, HTML stripped)
-tagline: |               # shown below your name; supports <br> for line breaks
-  Line one<br>
-  Line two
-lang: zh-Hant            # html[lang] attribute (defaults to en)
+```ts
+name: "Your Name",          // displayed as the page heading; also used as avatar alt text
+title: "Your Name | Site",  // browser tab title
+description: "...",         // meta description
+tagline: "Line one<br>\nLine two",  // shown below your name; supports <br> for line breaks
+lang: "zh-Hant",            // html[lang] attribute
 
-url: https://example.com        # canonical base URL for OG/SEO
-social_image: /assets/og/screenshot.png  # OG/Twitter preview image
-Image_URL: https://...          # avatar image (run through weserv.nl for WebP + caching)
-Cover_Image: https://...        # blurred background image
+url: "https://example.com",         // canonical base URL for OG/SEO
+socialImage: "/assets/og/screenshot.png",  // OG/Twitter preview image path (served from public/)
+imageUrl: avatar,           // avatar — import ImageMetadata from src/assets/images/
+coverImage: cover,          // blurred background — import ImageMetadata from src/assets/images/
 
-analytics:               # remove either key to disable that service
-  google_tag: G-XXXXXXX
-  clarity_id: xxxxxxxxx
+analytics: {               // remove either key to disable that service
+  googleTag: "G-XXXXXXX",
+  clarityId: "xxxxxxxxx",
+},
 
-links:
-  - Name: GitHub                # button label
-    URL: https://github.com     # base URL; if Username is set, final href is URL/Username
-    Username: yourname          # optional
-    Color: "#cccccc"            # button background; omit for white-border style
-    Text_Color: "#000000"       # icon + text color; defaults to white
-    Icon-Class: fab fa-github   # Font Awesome class
+links: [
+  {
+    name: "GitHub",                // button label
+    url: "https://github.com",     // base URL; if username is set, final href is url/username
+    username: "yourname",          // optional
+    color: "#cccccc",              // button background; omit for white-border style
+    textColor: "#000000",          // icon + text color; defaults to white
+    iconClass: "fab fa-github",    // Font Awesome class
+  },
+],
 
-imglinks:
-  - Name: VRChat
-    URL: https://vrchat.com/home/user/...
-    Color: "#003333"
-    Text_Color: "#ffffff"
-    Img_URL: "vrc-logo-cropped.svg"  # filename inside assets/images/links/
+imgLinks: [
+  {
+    name: "VRChat",
+    url: "https://vrchat.com/home/user/...",
+    color: "#003333",
+    textColor: "#ffffff",
+    imgUrl: vrcLogo,         // import ImageMetadata from src/assets/images/links/
+  },
+],
 ```
 
-To disable a link, comment it out.
+Images (`imageUrl`, `coverImage`, `imgUrl`) are imported as ES modules at the top of `config.ts` — place files in `src/assets/images/` and add an import like `import avatar from "../assets/images/avatar.webp"`. Astro's `<Image />` component then handles optimization (resize, WebP conversion) at build time.
+
+To disable a link, remove or comment it out of the array.
 
 ## Open Graph screenshot
 
@@ -60,19 +66,7 @@ To disable a link, comment it out.
 npm run ss
 ```
 
-Defaults to `http://localhost:4000/`, saving to `assets/og/screenshot.png`. Override with `SCREENSHOT_URL`, `SCREENSHOT_DIR`, or `SCREENSHOT_OUTPUT`.
-
-## Quality checks
-
-```bash
-npm run check
-```
-
-CI runs the same checks plus `bundle exec jekyll build` via [quality.yml](./.github/workflows/quality.yml).
-
-## Credits
-
-Based on [Links](https://github.com/harsh98trivedi/Links).
+Defaults to `http://localhost:4000/`, saving to `public/assets/og/screenshot.png`. Override with `SCREENSHOT_URL`, `SCREENSHOT_DIR`, or `SCREENSHOT_OUTPUT`.
 
 ## License
 

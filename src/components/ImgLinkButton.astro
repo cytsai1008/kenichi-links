@@ -1,0 +1,37 @@
+---
+import { Image } from "astro:assets";
+import type { ImgLink } from "../data/config";
+
+interface Props {
+  link: ImgLink;
+}
+
+const { link } = Astro.props;
+const href = link.username ? `${link.url.replace(/\/$/, "")}/${link.username}` : link.url;
+const hasColor = !!link.color;
+const spanStyle = hasColor ? `--link-bg: ${link.color}; --link-shadow: ${link.color}80;` : "";
+const textStyle = link.textColor ? `color: ${link.textColor};` : "";
+---
+
+<a class="link-anchor" href={href} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
+  <span
+    class:list={[
+      "links",
+      hasColor
+        ? "bg-(--link-bg) shadow-[0px_10px_25px_0px_var(--link-shadow)]"
+        : "border-[0.1rem] border-white shadow-[0px_10px_25px_0px_#ffffff80]",
+    ]}
+    style={spanStyle}
+  >
+    <span class="flex items-center justify-center" style={textStyle}>
+      <Image
+        src={link.imgUrl}
+        class="h-10 w-10 align-middle"
+        alt={`${link.name} logo`}
+        loading="eager"
+        decoding="async"
+      />
+      <span class="mx-1.5 align-middle font-normal">{link.name}</span>
+    </span>
+  </span>
+</a>
