@@ -66,12 +66,6 @@ export const siteConfig: SiteConfig = {
       iconClass: "fab fa-twitter",
     },
     {
-      name: "Bluesky",
-      url: "https://furrybsky.photocat.blue",
-      color: "#1185fe",
-      iconClass: "fab fa-bluesky",
-    },
-    {
       name: "GitHub",
       url: "https://github.com",
       username: "cytsai1008",
@@ -80,11 +74,17 @@ export const siteConfig: SiteConfig = {
       iconClass: "fab fa-github",
     },
     {
+      name: "Website",
+      url: "https://kenichi.photocat.blue",
+      color: "#4a7aa3",
+      iconClass: "fa-solid fa-globe",
+    },
+    {
       name: "相片集",
       url: "https://kenichi.photocat.blue/blog/photo-sets/",
       color: "#000000",
       textColor: "#ffffff",
-      iconClass: "fab fa-camera",
+      iconClass: "fa-solid fa-camera",
     },
   ],
   imgLinks: [
