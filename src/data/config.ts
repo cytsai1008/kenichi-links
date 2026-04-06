@@ -81,10 +81,10 @@ export const siteConfig: SiteConfig = {
     },
     {
       name: "相片集",
-      url: "https://kenichi-docs.notion.site/Photo-Set-2a9d07d24293816487fbeec09e8a63aa",
+      url: "https://kenichi.photocat.blue/blog/photo-sets/",
       color: "#000000",
       textColor: "#ffffff",
-      iconClass: "fab fa-notion",
+      iconClass: "fab fa-camera",
     },
   ],
   imgLinks: [
