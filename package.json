@@ -4,11 +4,11 @@
   "version": "1.0.0",
   "description": "A personal landing page for social profiles",
   "engines": {
-    "node": ">=22"
+    "node": ">=22.12"
   },
   "dependencies": {
     "gsap": "^3.14.2",
-    "puppeteer": "^24.39.1"
+    "puppeteer": "^25.10.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
