@@ -31,5 +31,8 @@
     "format": "prettier --write \"**/*.{astro,css,js,json,md,ts,yml}\""
   },
   "author": "CYTsai",
-  "license": "MIT"
+  "license": "MIT",
+  "overrides": {
+    "minimatch": "^11.0.1"
+  }
 }
